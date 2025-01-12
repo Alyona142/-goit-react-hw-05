@@ -1,34 +1,41 @@
 import { useEffect, useState } from "react";
-import { fetchTrendMovies } from "api/movies";
-import Loader from "components/Loader/Loader";
-import MovieList from "components/MovieList/MovieList";
+import { fetchTrendMovies } from "../api/movies";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const getMovies = async () => {
       setIsLoading(true);
-
+      setIsError(false);
       try {
-        const { results } = await fetchTrendMovies();
-        setMovies(results);
+        const data = await fetchTrendMovies();
+        setMovies(data.results);
       } catch (error) {
-        console.error(error);
+        console.log(error);
+        setIsError(true);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchMovies();
+    getMovies();
   }, []);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading movies</div>;
+
   return (
-    <section className="container">
-      {isLoading && <Loader />}{" "}
-      {!isLoading && movies.length > 0 && <MovieList data={movies} />}{" "}
-    </section>
+    <div>
+      <h1>Trending Movies</h1>
+      <ul>
+        {movies.map((movie) => (
+          <li key={movie.id}>{movie.title}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import styles from "./MovieDetailsPage.module.css";
 import { fetchMovieById } from "api/movies";
+import { API_KEY } from "../config";
 
 import MovieDetails from "components/MovieDetails/MovieDetails";
 import Loader from "components/Loader/Loader";
@@ -15,7 +16,7 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const refLocation = useRef(location.state);
 
-  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiKey = API_KEY;
 
   useEffect(() => {
     if (!movieId || !apiKey) return;
