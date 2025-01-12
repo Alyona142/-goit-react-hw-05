@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { fetchSearchMovie } from "api/movies";
-import Loader from "components/Loader/Loader";
-import MovieList from "components/MovieList/MovieList";
-import SearchForm from "components/SearchForm/SearchForm";
-import NoFoundMessage from "components/NoFoundMessage/NoFoundMessage";
+import { fetchSearchMovie } from "@/api/movies";
+import Loader from "../../components/Loader/Loader";
+import MovieList from "../../components/MovieList/MovieList";
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,7 +26,6 @@ const MoviesPage = () => {
         setMovies(results);
       } catch (error) {
         console.log(error);
-
         setIsError(true);
       } finally {
         setIsLoading(false);
@@ -43,22 +40,29 @@ const MoviesPage = () => {
 
   return (
     <section className="container">
-      <SearchForm
-        handleChange={handleChange}
-        handleSearchMovie={handleSearchMovie}
-        query={search}
-      />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearchMovie();
+        }}
+      >
+        <input
+          type="text"
+          value={search}
+          onChange={handleChange}
+          placeholder="Search for movies"
+        />
+        <button type="submit">Search</button>
+      </form>
 
       {isLoading && <Loader />}
       {isError && (
-        <NoFoundMessage text="An error occurred, please try again." />
+        <p style={{ color: "red" }}>An error occurred, please try again.</p>
       )}
       {movies?.length > 0 ? (
         <MovieList data={movies} />
       ) : (
-        movies && (
-          <NoFoundMessage text="Movies with search criteria not found" />
-        )
+        movies && <p>Movies with search criteria not found</p>
       )}
     </section>
   );

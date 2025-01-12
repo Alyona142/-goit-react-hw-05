@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import styles from "./MovieList.module.css";
-import MovieCard from "components/MovieCard/MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
 
 const MovieList = ({ data }) => {
   const location = useLocation();

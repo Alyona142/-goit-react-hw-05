@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import styles from "./MovieDetailsPage.module.css";
-import { fetchMovieById } from "api/movies";
+import { fetchMovieById } from "@api/movies";
 import { API_KEY } from "../config";
 
-import MovieDetails from "components/MovieDetails/MovieDetails";
-import Loader from "components/Loader/Loader";
-import ErrorMessage from "components/ErrorMessage/ErrorMessage";
-
+import MovieDetails from "../../components/MovieDetails/MovieDetails";
+import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetail, setMovieDetail] = useState({});
