@@ -2,11 +2,8 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import styles from "./MovieDetailsPage.module.css";
 import { fetchMovieById } from "@api/movies";
-import { API_KEY } from "../config";
-
-import MovieDetails from "../../components/MovieDetails/MovieDetails";
 import Loader from "../../components/Loader/Loader";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetail, setMovieDetail] = useState({});
@@ -15,21 +12,18 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const refLocation = useRef(location.state);
 
-  const apiKey = API_KEY;
-
   useEffect(() => {
-    if (!movieId || !apiKey) return;
+    if (!movieId) return;
 
     const handleMovieById = async () => {
       setIsLoading(true);
       setIsError(false);
 
       try {
-        const data = await fetchMovieById(movieId, apiKey);
+        const data = await fetchMovieById(movieId);
         setMovieDetail(data);
       } catch (error) {
         console.log(error);
-
         setIsError(true);
       } finally {
         setIsLoading(false);
@@ -37,7 +31,7 @@ const MovieDetailsPage = () => {
     };
 
     handleMovieById();
-  }, [movieId, apiKey]);
+  }, [movieId]);
 
   const score = useMemo(() => {
     if (!movieDetail.vote_average || !movieDetail.vote_count) return 0;
@@ -57,7 +51,6 @@ const MovieDetailsPage = () => {
     <section className="container">
       <h1>Detail Info</h1>
       <Link to={refLocation.current || "/"}>
-        {" "}
         <button
           className={styles.goBackBtn}
           type="button"
@@ -66,12 +59,24 @@ const MovieDetailsPage = () => {
           GoBack
         </button>
       </Link>
+
       {movieId && !isLoading && (
-        <MovieDetails movieDetail={movieDetail} score={score} genres={genres} />
+        <div>
+          <h2>{movieDetail.title}</h2>
+          <p>{score}</p>
+          <p>{genres}</p>
+        </div>
       )}
+
       {isLoading && <Loader />}
-      {isError && <ErrorMessage />}
-      <h2 className={styles.additionalTitle}>Additional Information</h2>{" "}
+
+      {isError && (
+        <div className={styles.errorMessage}>
+          <p>Something went wrong. Please try again later.</p>
+        </div>
+      )}
+
+      <h2 className={styles.additionalTitle}>Additional Information</h2>
       <div className={styles.subNav}>
         <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
         <Link to={`/movies/${movieId}/cast`}>Cast</Link>
