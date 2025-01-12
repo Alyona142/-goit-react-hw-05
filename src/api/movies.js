@@ -1,5 +1,4 @@
-const API_KEY =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjFlZDYzYzQxODhlZGZmMDRhNTQ5ZDRiNTlmOTQ3YyIsIm5iZiI6MTczNjM2MDY1Ni4zNDYsInN1YiI6IjY3N2VjMmQwYzgxYWNhYTYzZGJiMmEzMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jEP5GOMrxpWTB2rjrbq4-rHaL_dM78TlnJIWuuSgIcA";
+const API_KEY = "621ed63c4188edff04a549d4b59f947c";
 
 export const fetchTrendMovies = async () => {
   const response = await fetch(
