@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { fetchTrendMovies } from "../../api/movies";
 
 const HomePage = () => {

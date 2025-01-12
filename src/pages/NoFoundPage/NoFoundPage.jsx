@@ -1,7 +1,7 @@
-import styles from "./NoFoundMessage.module.css";
+import styles from "./NoFoundPage.module.css";
 
-const NoFoundMessage = ({ text }) => {
+const NoFoundPage = ({ text }) => {
   return <div className={styles.noResult}>{text}</div>;
 };
 
-export default NoFoundMessage;
+export default NoFoundPage;

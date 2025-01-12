@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
-import { fetchMovieCast } from "../../movielist-api";
+import { fetchMovieCast } from "../../api/movies";
 import styles from "./MovieCast.module.css";
 
 const MovieCast = () => {

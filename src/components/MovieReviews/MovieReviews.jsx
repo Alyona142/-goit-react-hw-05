@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import styles from "./Reviews.module.css";
-import { fetchMovieReview } from "api/movies";
+import styles from "./MovieReviews.module.css";
+import { fetchMovieReview } from "../../api/movies";
 
-import Loader from "components/Loader/Loader";
-import ErrorMessage from "components/ErrorMessage/ErrorMessage";
-import ReviewCard from "components/ReviewCard/ReviewCard";
-import NoFoundMessage from "components/NoFoundMessage/NoFoundMessage";
+import Loader from "../Loader/Loader";
+
+import NoFoundMessage from "../../pages/NoFoundPage/NoFoundPage";
 
 const MovieReviews = () => {
   const { movieId } = useParams();

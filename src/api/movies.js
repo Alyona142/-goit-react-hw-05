@@ -28,3 +28,25 @@ export const fetchSearchMovie = async (query) => {
   }
   return response.json();
 };
+
+export const fetchMovieReview = async (movieId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${API_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch search results");
+  }
+  const data = await response.json();
+  return data.results;
+};
+
+export const fetchMovieCast = async (movieId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch search results");
+  }
+  const data = await response.json();
+  return data.cast;
+};
