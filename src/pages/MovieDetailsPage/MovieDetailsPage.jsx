@@ -47,9 +47,14 @@ const MovieDetailsPage = () => {
       : "";
   }, [movieDetail.genres]);
 
+  const moviePoster = useMemo(() => {
+    if (!movieDetail.poster_path) return;
+    return `https://image.tmdb.org/t/p/w500/${movieDetail.poster_path}`;
+  }, [movieDetail.poster_path]);
+
   return (
     <section className="container">
-      <h1>Detail Info</h1>
+      {/* <h1>Detail Info</h1> */}
       <Link to={refLocation.current || "/"}>
         <button
           className={styles.goBackBtn}
@@ -63,6 +68,7 @@ const MovieDetailsPage = () => {
       {movieId && !isLoading && (
         <div>
           <h2>{movieDetail.title}</h2>
+          <img src={moviePoster} />
           <p>{score}</p>
           <p>{genres}</p>
         </div>

@@ -1,9 +1,3 @@
-.errorContainer {
+.text {
   text-align: center;
-  padding: 20px;
-}
-
-.errorMessage {
-  font-size: 24px;
-  color: red;
 }

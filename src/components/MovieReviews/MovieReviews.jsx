@@ -10,21 +10,22 @@ import NoFoundMessage from "../../pages/NoFoundPage/NoFoundPage";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      if (!movieId) return;
+    if (!movieId) return;
 
+    const fetchReviews = async () => {
       setIsLoading(true);
-      setIsError(false);
+      setError(false);
 
       try {
-        const { results } = await fetchMovieReview(movieId);
-        setReviews(results);
-        setIsError(true);
+        const data = await fetchMovieReview(movieId);
+        setReviews(data.results);
+      } catch {
+        setError(`Error fetching MovieReviews: ${error.message}`);
       } finally {
         setIsLoading(false);
       }
@@ -34,14 +35,33 @@ const MovieReviews = () => {
   }, [movieId]);
 
   return (
-    <div className={styles.content}>
-      {isLoading && <Loader />}
-      {isError && <ErrorMessage />}
-      {!isLoading && !isError && reviews && reviews.length === 0 && (
-        <NoFoundMessage text="Unfortunately, there are no reviews for this movie" />
+    <div className={styles.container}>
+      {isLoading && (
+        <div className={styles.loading}>
+          <Loader />
+        </div>
       )}
-      {!isLoading && !isError && reviews && reviews.length > 0 && (
-        <ReviewCard reviews={reviews} />
+
+      {error && <p className={styles.error}>{error}</p>}
+
+      {!isLoading && !error && !reviews.length && (
+        <p className={styles.message}>
+          We don't have any reviews for this movie
+        </p>
+      )}
+
+      {!isLoading && !error && reviews.length > 0 && (
+        <>
+          <h3 className={styles.subtitle}>Movie Reviews</h3>
+          <ul className={styles.reviewList}>
+            {reviews.map(({ id, author, content }) => (
+              <li key={id} className={styles.reviewItem}>
+                <p className={styles.reviewerName}>{author}</p>
+                <p className={styles.reviewText}>{content}</p>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </div>
   );

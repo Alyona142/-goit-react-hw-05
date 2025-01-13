@@ -18,7 +18,7 @@ const MovieCast = () => {
 
       try {
         const data = await fetchMovieCast(movieId);
-        setMovieCast(data);
+        setMovieCast(data.cast);
       } catch (error) {
         setError(`Error fetching MovieCast: ${error.message}`);
       } finally {

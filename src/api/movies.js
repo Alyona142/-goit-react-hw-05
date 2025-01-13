@@ -36,8 +36,8 @@ export const fetchMovieReview = async (movieId) => {
   if (!response.ok) {
     throw new Error("Failed to fetch search results");
   }
-  const data = await response.json();
-  return data.results;
+
+  return response.json();
 };
 
 export const fetchMovieCast = async (movieId) => {
@@ -47,6 +47,6 @@ export const fetchMovieCast = async (movieId) => {
   if (!response.ok) {
     throw new Error("Failed to fetch search results");
   }
-  const data = await response.json();
-  return data.cast;
+
+  return response.json();
 };

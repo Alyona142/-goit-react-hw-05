@@ -33,7 +33,9 @@ const HomePage = () => {
       <h1>Trending Movies</h1>
       <ul>
         {movies.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
+          <a href={`movies/${movie.id}`}>
+            <li key={movie.id}>{movie.title}</li>
+          </a>
         ))}
       </ul>
     </div>
