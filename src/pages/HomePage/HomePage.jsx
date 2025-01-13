@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchTrendMovies } from "../../api/movies";
+import MovieList from "../MovieList/MovieList";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -14,7 +15,7 @@ const HomePage = () => {
         const data = await fetchTrendMovies();
         setMovies(data.results);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setIsError(true);
       } finally {
         setIsLoading(false);
@@ -30,13 +31,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Trending Movies</h1>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <a href={`movies/${movie.id}`}>{movie.title}</a>
-          </li>
-        ))}
-      </ul>
+      <MovieList movies={movies} />
     </div>
   );
 };

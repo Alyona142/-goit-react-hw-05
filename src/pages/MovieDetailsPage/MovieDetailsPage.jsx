@@ -84,8 +84,12 @@ const MovieDetailsPage = () => {
 
       <h2 className={styles.additionalTitle}>Additional Information</h2>
       <div className={styles.subNav}>
-        <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-        <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+        <Link to={`/movies/${movieId}/reviews`} className={styles.navLink}>
+          Reviews
+        </Link>
+        <Link to={`/movies/${movieId}/cast`} className={styles.navLink}>
+          Cast
+        </Link>
       </div>
       <Outlet />
     </section>
